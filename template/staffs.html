@@ -111,8 +111,8 @@
             </tr>
             {% for staff in staffs %}
             <tr>
-                <!-- Link to staff profile -->
-                <td><a href="{% url 'staff_profile' staff.id %}" class="staff-name">{{ staff.name }}</a></td>
+                
+                <td><a href="{% url 'staff_profile' staff.id %}" class="staff-name">{{ staff.name }} {click for more info}</a></td>
                 <td>{{ staff.mobile }}</td>
                 <td>
                     {% if staff.levels.all %}
@@ -124,12 +124,12 @@
                     {% endif %}
                 </td>
                 <td class="btn-container">
-                    <!-- Edit Button -->
+                    
                     <a href="{% url 'edit' staff.id %}">
                         <button class="btn edit-btn">Edit</button>
                     </a>
                     
-                    <!-- Delete Button -->
+                    
                     <a href="{% url 'delete' staff.id %}">
                         <button class="btn delete-btn">Delete</button>
                     </a>

@@ -5,10 +5,12 @@ from . import views
 
 
 urlpatterns =[
+    path('login/', views.login_user, name = 'login' ),
+    path('logout/', views.logout_user, name = 'logout' ),
     path('', views.staffs_list, name = 'Home'),
     path('create-profile/', views.create_profile, name = 'create'),
     path('edit-profile/<int:pk>/', views.update_profile, name = 'edit'),
     path('delete-profile/<int:pk>', views.delete_profile, name='delete'),
-    path('staff/<int:pk>', views.Staffprofile, name = 'staff_profile' )
+    path('staff/<int:pk>', views.Staffprofile, name = 'staff_profile' ),
+    
 ]
-

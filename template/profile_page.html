@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ staff.name }}</h1>
+
+        <table>
+            <tr>
+                <td>
+                    <strong>Name:</strong> {{ staff.name }} <br>
+                    <strong>Mobile:</strong> {{ staff.mobile }} <br>
+                    <strong>Experience:</strong> {{ staff.experience }} <br>
+                    <strong>Marital status:</strong> 
+                    {% if staff.marital_status.all %}
+                        {% for marital_status in staff.marital_status.all %}
+                            {{ marital_status.status }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        No Relationship assigned
+                    {% endif %}
+                    <br>
+
+                    <strong>Qualification:</strong> 
+                    {% if staff.qualifications.all %}
+                        {% for qualification in staff.qualifications.all %}
+                            {{ qualification.education }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        No qualification assigned
+                    {% endif %}
+                    <br>
+                    <strong>Level:</strong> 
+                    {% if staff.levels.all %}
+                        {% for level in staff.levels.all %}
+                            {{ level.rank }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        No level assigned
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+        <!-- Buttons -->
+        <div class="actions">
+            <!-- Go Back Button -->
+            <a href="{% url 'Home' %}" class="btn btn-secondary mb-2">Go Back</a>
+
+            <!-- Edit Button -->
+            <a href="{% url 'edit' staff.id %}" class="btn btn-success mb-2">Edit</a>
+
+            <!-- Delete Button -->
+            <form action="{% url 'delete' staff.id %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger mb-2" onclick="return confirm('Are you sure you want to delete this staff?')">Delete</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

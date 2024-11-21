@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to the Home Page</h1>
+<p>This is the content for the home page.</p>
+
+    <title>Create Staff Profile</title>
+</head>
+<body>
+    <h1>Create Staff Profile</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }} 
+        <button type="submit">Submit</button>
+    </form>
+
+    {% endblock %}    
+
+</body>
+</html>

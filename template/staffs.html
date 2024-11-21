@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background-color: #da190b;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        a.staff-name {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a.staff-name:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Staff Profile</h1>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Level</th>
+                <th>Actions</th>
+            </tr>
+            {% for staff in staffs %}
+            <tr>
+                <!-- Link to staff profile -->
+                <td><a href="{% url 'staff_profile' staff.id %}" class="staff-name">{{ staff.name }}</a></td>
+                <td>{{ staff.mobile }}</td>
+                <td>
+                    {% if staff.levels.all %}
+                        {% for level in staff.levels.all %}
+                            {{ level.rank }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        No level assigned
+                    {% endif %}
+                </td>
+                <td class="btn-container">
+                    <!-- Edit Button -->
+                    <a href="{% url 'edit' staff.id %}">
+                        <button class="btn edit-btn">Edit</button>
+                    </a>
+                    
+                    <!-- Delete Button -->
+                    <a href="{% url 'delete' staff.id %}">
+                        <button class="btn delete-btn">Delete</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
+
+</body>
+</html>
